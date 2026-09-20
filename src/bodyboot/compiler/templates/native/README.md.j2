@@ -1,0 +1,24 @@
+# Generated native adapter (run `{{ run_id }}`)
+
+Compiled by BODYBOOT {{ generator_version }} from an embodiment plan inferred by the
+`{{ agent_backend }}` agent backend for the vendor package `{{ plan.sdk_package }}`.
+
+```python
+from bodyboot_native_adapter import GeneratedRobotAdapter
+
+robot = GeneratedRobotAdapter()
+robot.connect()            # vendor SDK must be importable
+print(robot.health(), robot.imu(), robot.odometry())
+print(robot.velocity(0.2, 0.0, 0.1))   # MOCK-ONLY: returns the would-be vendor call
+robot.stop()
+robot.close()
+```
+
+| canonical | vendor symbol | risk | confidence |
+|---|---|---|---|
+{% for cap in plan.capabilities %}
+| `{{ cap.canonical_name }}` | `{{ cap.vendor_symbol }}` | {{ cap.risk }} | {{ "%.2f" | format(cap.confidence) }} |
+{% endfor %}
+
+**Real motion: DISABLED.** `velocity()` never calls the vendor SDK. This adapter has
+not been validated on physical hardware.

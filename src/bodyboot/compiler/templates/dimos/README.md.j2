@@ -1,0 +1,23 @@
+# Generated external dimOS integration (run `{{ run_id }}`)
+
+An **external** dimOS package compiled by BODYBOOT {{ generator_version }}. It does not patch
+dimOS and never edits `dimos/robot/all_blueprints.py`; blueprints are discovered through
+the `dimos.blueprints` entry-point group.
+
+```bash
+pip install -e .          # next to an installed dimos and the {{ plan.sdk_package }} vendor SDK
+dimos list                # shows {{ dist_name }}.robot
+dimos run {{ dist_name }}.robot
+```
+
+| entry point | target |
+|---|---|
+| `{{ dist_name }}.robot` | `bodyboot_generated_robot.blueprints:bodyboot_robot` |
+| `{{ dist_name }}.connection` | `bodyboot_generated_robot.connection_module:BodybootConnection` |
+| `{{ dist_name }}.skills` | `bodyboot_generated_robot.skill_container:BodybootSkillContainer` |
+
+Streams: `cmd_vel: In[Twist]` (mock-only), `color_image: Out[Image]`, `odom: Out[PoseStamped]`,
+`imu: Out[Imu]`. Skills: `robot_health`, `describe_embodiment`, `stop_robot`, `move_velocity` (mock-only).
+
+**Real motion: DISABLED.** Structure was verified statically by BODYBOOT; this package has
+not been run inside dimOS by the generator and has not been validated on hardware.

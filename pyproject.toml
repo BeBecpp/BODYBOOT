@@ -1,0 +1,51 @@
+[project]
+name = "bodyboot"
+version = "0.1.0"
+description = "BODYBOOT - a self-bootstrapping embodiment compiler for physical AI. Give the AI a robot, not a robot driver."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+    "typer>=0.12",
+    "pydantic>=2.7",
+    "rich>=13.7",
+    "jinja2>=3.1",
+]
+
+[project.scripts]
+bodyboot = "bodyboot.cli:app"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.2",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bodyboot"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    "claude: exercises the real local Claude CLI (skipped unless BODYBOOT_TEST_CLAUDE=1)",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["generated", ".bodyboot"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src/bodyboot"]
+strict = true
+warn_unused_ignores = true

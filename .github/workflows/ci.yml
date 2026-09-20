@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync environment (Python 3.12)
+        run: uv sync --frozen
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Format check
+        run: uv run ruff format --check .
+
+      - name: Type check (strict)
+        run: uv run mypy
+
+      - name: Tests
+        run: uv run pytest -q
+
+      # The headline demo uses the Claude CLI, which CI has no credentials for.
+      # The deterministic backend runs the identical pipeline offline.
+      - name: End-to-end demo (deterministic agent)
+        run: uv run bodyboot demo --agent deterministic
+
+      - name: Assert generated artifacts are real and motion stayed disabled
+        shell: bash
+        run: |
+          set -euo pipefail
+          run_id=$(ls .bodyboot/runs | tail -1)
+          test -s ".bodyboot/runs/$run_id/embodiment_plan.json"
+          test -s ".bodyboot/runs/$run_id/report.html"
+          test -d "generated/native_$run_id" && test -d "generated/dimos_$run_id"
+          python - "$run_id" <<'PY'
+          import json, sys
+          run = sys.argv[1]
+          data = json.load(open(f".bodyboot/runs/{run}/verification.json"))
+          assert data["status"] == "VERIFIED", data["status"]
+          assert data["real_motion"] == "DISABLED", data["real_motion"]
+          assert data["hardware_validated"] is False
+          assert data["passed"] == data["total"] and data["total"] >= 44, data
+          print(f"VERIFIED {data['passed']}/{data['total']}, real motion {data['real_motion']}")
+          PY
+
+      - name: Upload run artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bodyboot-run-${{ matrix.os }}
+          path: |
+            .bodyboot/runs/
+            generated/
+          retention-days: 14
+          if-no-files-found: ignore

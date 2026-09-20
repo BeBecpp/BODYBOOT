@@ -1,0 +1,90 @@
+{
+  "_comment": "GOLDEN EVALUATOR for fixtures/mystery_go2_sdk. Read ONLY by `bodyboot verify`. It must never reach an agent prompt, an embodiment plan, or generated code - the verifier checks for the canary below in all three.",
+  "canary": "BODYBOOT-EVALUATOR-CANARY-7f3a91c2d4e8",
+  "sdk": "mystery_go2_sdk",
+  "session": {
+    "symbol": "mysterybot.client.RobotSession",
+    "open": "open",
+    "close": "close"
+  },
+  "capabilities": {
+    "camera.rgb": {
+      "vendor_symbols": ["mysterybot.camera.VideoPipe.fetch_rgb"],
+      "access_path": ["video"],
+      "risk": "read_only",
+      "reference": {
+        "width": {"path": "cols"},
+        "height": {"path": "rows"},
+        "encoding": {"constant": "rgb8"},
+        "data": {"path": "buf"},
+        "stamp_s": {"path": "t_us", "scale": 1e-06}
+      }
+    },
+    "imu": {
+      "vendor_symbols": ["mysterybot.state.StateChannel.read_imu_packet"],
+      "access_path": ["state"],
+      "risk": "read_only",
+      "reference": {
+        "accel_mps2": {"path": "accel_g", "scale": 9.80665},
+        "gyro_rps": {"path": "gyro_dps", "scale": 0.017453292519943295},
+        "orientation_xyzw": {"path": "quat_wxyz", "indices": [1, 2, 3, 0], "scale": 1.0},
+        "stamp_s": {"path": "t_us", "scale": 1e-06}
+      }
+    },
+    "odometry": {
+      "vendor_symbols": ["mysterybot.state.StateChannel.read_packet"],
+      "access_path": ["state"],
+      "risk": "read_only",
+      "reference": {
+        "position_m": {"path": "pos", "scale": 1.0},
+        "yaw_rad": {"path": "heading_deg", "scale": 0.017453292519943295},
+        "linear_velocity_mps": {"path": "body_vel", "scale": 1.0},
+        "yaw_rate_rps": {"path": "turn_rate_dps", "scale": 0.017453292519943295},
+        "stamp_s": {"path": "t_us", "scale": 1e-06}
+      }
+    },
+    "locomotion.velocity": {
+      "vendor_symbols": ["mysterybot.sport.SportChannel.joystick"],
+      "access_path": ["sport"],
+      "risk": "motion",
+      "vendor_params": ["v1", "v2", "v3"],
+      "vectors": [
+        {
+          "canonical": {"vx": 0.3, "vy": 0.1, "yaw_rate": 0.5},
+          "vendor": {"v1": 0.1, "v2": 0.3, "v3": -28.64788975654116},
+          "clamped": false
+        },
+        {
+          "canonical": {"vx": -0.2, "vy": -0.05, "yaw_rate": -1.0},
+          "vendor": {"v1": -0.05, "v2": -0.2, "v3": 57.29577951308232},
+          "clamped": false
+        },
+        {
+          "canonical": {"vx": 5.0, "vy": 2.0, "yaw_rate": -9.0},
+          "vendor": {"v1": 0.4, "v2": 1.2, "v3": 100.0},
+          "clamped": true
+        },
+        {
+          "canonical": {"vx": 0.0, "vy": 0.0, "yaw_rate": 0.0},
+          "vendor": {"v1": 0.0, "v2": 0.0, "v3": 0.0},
+          "clamped": false
+        }
+      ]
+    },
+    "locomotion.stop": {
+      "vendor_symbols": ["mysterybot.sport.SportChannel.freeze"],
+      "forbidden_symbols": ["mysterybot.sport.SportChannel.go_limp"],
+      "access_path": ["sport"],
+      "risk": "stop"
+    },
+    "connection.health": {
+      "vendor_symbols": ["mysterybot.client.RobotSession.heartbeat"],
+      "access_path": [],
+      "risk": "read_only",
+      "reference": {
+        "alive": {"path": "link_up"},
+        "latency_s": {"path": "rtt_ms", "scale": 0.001}
+      }
+    }
+  }
+}

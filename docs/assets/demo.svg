@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" role="img"
+     aria-label="Terminal output of uv run bodyboot demo --agent claude, ending in BODYBOOT VERIFIED">
+  <title>uv run bodyboot demo --agent claude</title>
+  <desc>Verbatim terminal output of BODYBOOT run 20260920-104852-85a0 (agent warnings abridged).</desc>
+  <style>
+    .bg   { fill: #11161d; }
+    .bar  { fill: #1b222c; }
+    text  { font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace; font-size: 13px; }
+    .t    { fill: #c8d3e0; }
+    .dim  { fill: #6b7a8c; }
+    .cyan { fill: #56b6c2; }
+    .grn  { fill: #58c48a; }
+    .yel  { fill: #d9a641; }
+    .wht  { fill: #eef3f8; font-weight: 700; }
+    .ttl  { fill: #8fa3b8; font-size: 12px; }
+  </style>
+
+  <rect class="bg" width="880" height="720" rx="10"/>
+  <rect class="bar" width="880" height="32" rx="10"/>
+  <rect class="bar" y="20" width="880" height="12"/>
+  <circle cx="20" cy="16" r="5.5" fill="#e06c62"/>
+  <circle cx="39" cy="16" r="5.5" fill="#d9a641"/>
+  <circle cx="58" cy="16" r="5.5" fill="#58c48a"/>
+  <text class="ttl" x="440" y="20" text-anchor="middle">BODYBOOT — run 20260920-104852-85a0</text>
+
+  <g>
+    <text class="grn"  x="20" y="60">$</text>
+    <text class="t"    x="36" y="60">uv run bodyboot demo --agent claude</text>
+
+    <text class="wht"  x="20" y="86">BODYBOOT 0.1.0</text>
+    <text class="dim"  x="140" y="86">agent=claude  sdk=fixtures/mystery_go2_sdk</text>
+
+    <text class="cyan" x="20" y="116">[1/5]</text>
+    <text class="t"    x="72" y="116">Inspecting unfamiliar vendor SDK...</text>
+    <text class="dim"  x="72" y="134">5 modules, 12 classes, 31 public symbols, 13 constants</text>
+    <text class="dim"  x="72" y="152">read-only probe: 12 calls made,</text>
+    <text class="yel"  x="310" y="152">7 refused by safety policy</text>
+
+    <text class="cyan" x="20" y="182">[2/5]</text>
+    <text class="t"    x="72" y="182">Asking coding agent to infer embodiment...</text>
+    <text class="t"    x="72" y="200">camera.rgb</text>
+    <text class="dim"  x="240" y="200">→</text>
+    <text class="t"    x="264" y="200">VideoPipe.fetch_rgb</text>
+    <text class="grn"  x="520" y="200">0.95</text>
+    <text class="t"    x="72" y="218">imu</text>
+    <text class="dim"  x="240" y="218">→</text>
+    <text class="t"    x="264" y="218">StateChannel.read_imu_packet</text>
+    <text class="grn"  x="520" y="218">0.94</text>
+    <text class="t"    x="72" y="236">odometry</text>
+    <text class="dim"  x="240" y="236">→</text>
+    <text class="t"    x="264" y="236">StateChannel.read_packet</text>
+    <text class="grn"  x="520" y="236">0.94</text>
+    <text class="t"    x="72" y="254">locomotion.velocity</text>
+    <text class="dim"  x="240" y="254">→</text>
+    <text class="t"    x="264" y="254">SportChannel.joystick</text>
+    <text class="grn"  x="520" y="254">0.93</text>
+    <text class="t"    x="72" y="272">locomotion.stop</text>
+    <text class="dim"  x="240" y="272">→</text>
+    <text class="t"    x="264" y="272">SportChannel.freeze</text>
+    <text class="grn"  x="520" y="272">0.97</text>
+    <text class="t"    x="72" y="290">connection.health</text>
+    <text class="dim"  x="240" y="290">→</text>
+    <text class="t"    x="264" y="290">RobotSession.heartbeat</text>
+    <text class="grn"  x="520" y="290">0.96</text>
+    <text class="dim"  x="72" y="312">6 capabilities found (claude · claude-opus-5[1m], 65.7s, 1 attempt(s))</text>
+    <text class="yel"  x="72" y="334">!</text>
+    <text class="dim"  x="88" y="334">Vendor joystick() order is (strafe, advance, turn) = (vy, vx, yaw_rate).</text>
+    <text class="yel"  x="72" y="352">!</text>
+    <text class="dim"  x="88" y="352">v3 is CLOCKWISE-positive deg/s vs canonical CCW rad/s → scale -57.29577951.</text>
+    <text class="yel"  x="72" y="370">!</text>
+    <text class="dim"  x="88" y="370">Rejected go_limp() as stop: it cuts joint torque and the robot collapses.</text>
+
+    <text class="cyan" x="20" y="400">[3/5]</text>
+    <text class="t"    x="72" y="400">Compiling embodiment...</text>
+    <text class="t"    x="72" y="418">native adapter</text>
+    <text class="grn"  x="340" y="418">✓</text>
+    <text class="dim"  x="364" y="418">generated/native_20260920-104852-85a0</text>
+    <text class="t"    x="72" y="436">dimOS external plugin</text>
+    <text class="grn"  x="340" y="436">✓</text>
+    <text class="dim"  x="364" y="436">generated/dimos_20260920-104852-85a0</text>
+
+    <text class="cyan" x="20" y="466">[4/5]</text>
+    <text class="t"    x="72" y="466">Running independent contracts...</text>
+    <text class="dim"  x="72" y="484">71/71 checks passed</text>
+
+    <text class="wht"  x="72" y="514">BODYBOOT VERIFICATION</text>
+    <text class="t"    x="72" y="536">Capability discovery</text>
+    <text class="dim"  x="380" y="536">6/6</text>
+    <text class="grn"  x="440" y="536">PASS</text>
+    <text class="t"    x="72" y="554">Semantic mapping</text>
+    <text class="dim"  x="380" y="554">6/6</text>
+    <text class="grn"  x="440" y="554">PASS</text>
+    <text class="t"    x="72" y="572">Plan contracts</text>
+    <text class="dim"  x="380" y="572">10/10</text>
+    <text class="grn"  x="440" y="572">PASS</text>
+    <text class="t"    x="72" y="590">Native adapter contracts</text>
+    <text class="dim"  x="380" y="590">26/26</text>
+    <text class="grn"  x="440" y="590">PASS</text>
+    <text class="t"    x="72" y="608">dimOS package structure</text>
+    <text class="dim"  x="380" y="608">12/12</text>
+    <text class="grn"  x="440" y="608">PASS</text>
+    <text class="t"    x="72" y="626">Safety gates</text>
+    <text class="dim"  x="380" y="626">11/11</text>
+    <text class="grn"  x="440" y="626">PASS</text>
+    <text class="t"    x="72" y="644">Real motion</text>
+    <text class="yel"  x="440" y="644">DISABLED</text>
+
+    <text class="cyan" x="20" y="678">[5/5]</text>
+    <text class="grn"  x="72" y="678" font-weight="700">BODYBOOT VERIFIED</text>
+    <text class="dim"  x="72" y="700">"Give the AI a robot, not a robot driver."</text>
+  </g>
+</svg>

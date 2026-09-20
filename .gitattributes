@@ -1,0 +1,10 @@
+# Normalise to LF in the repository so Linux/macOS CI and shell scripts stay correct,
+# regardless of the contributor's platform.
+* text=auto eol=lf
+
+*.ps1 text eol=crlf
+*.sh  text eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
