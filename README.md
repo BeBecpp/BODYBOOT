@@ -158,3 +158,5 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/DEMO.md](docs/DEMO.md),
 * [dimensionalOS/dimos](https://github.com/dimensionalOS/dimos) — conventions for the generated plugin.
 * [BeBecpp/DimOs_Windows](https://github.com/BeBecpp/DimOs_Windows) — human-written Go2
   baseline, compared by capability category only, after generation. No code was copied.
+
+  credit: Bayarbayasgalan Enkhtulga
